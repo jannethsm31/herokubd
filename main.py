@@ -1,24 +1,17 @@
-from fastapi import FastAPI
-import mysql.connector
+import fastapi
+import sqlite3
 from pydantic import BaseModel
 
 # Crea la base de datos
-# conn = sqlite3.connect("contactos.db")
+conn = sqlite3.connect("contactos.db")
 
-app = FastAPI()
+app = fastapi.FastAPI()
 
 class Contacto(BaseModel):
     email: str
     nombre: str
     telefono: str
 
-conn = mysql.connector.connect(
-    user='qyr7zk3plin84bf9',
-    password='n90v5wi5ggfm0tjc',
-    host='i0rgccmrx3at3wv3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    port='3306',
-    database='xvjcrk5vf85h9jwg'
-)
 
 @app.get("/")
 def inicio():
@@ -41,7 +34,7 @@ async def obtener_contacto():
     cursor.execute('SELECT * FROM contactos')
     response = []
     for row in cursor:
-        contacto = Contactos(email=row[0], nombre=row[1], telefono=row[2])
+        contacto = {"email":row[0], "nombre":row[1], "telefono":row[2]}
         response.append(contacto)
     return response
 
@@ -51,12 +44,10 @@ async def obtener_contacto(email: str):
     # Consulta el contacto por su email
     coursor = conn.cursor()
     cursor.execute('SELECT * FROM contactos WHERE email = ?', (email,))
-    row = cursor.fetchone()
-    if row: 
-        contacto = Contacto(email=row[0], nombre=row[1], telefono=row[2])
-        return contacto
-    else:
-        return None
+    contacto = None
+    for row in c:
+        contacto = {"email":row[0], "nombre":row[1], "telefono":row[2]}
+    return contacto
 
 @app.put("/contactos/{email}")
 async def actualizar_contacto(email: str, contacto: Contacto):
