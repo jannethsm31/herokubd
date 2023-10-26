@@ -1,11 +1,11 @@
-import fastapi
+from fastapi import FastAPI
 import sqlite3
 from pydantic import BaseModel
 
 # Crea la base de datos
 conn = sqlite3.connect("contactos.db")
 
-app = fastapi.FastAPI()
+app = FastAPI()
 
 class Contacto(BaseModel):
     email: str
