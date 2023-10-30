@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale01.0">
-        <title> Contactos</title>
-        <script type="text/javascript" src="static/js/get_all.js"></script>
-    </head>
-    <body>
-        <table  id="tabla_contactos">
-            <thead id="thead_contactos">
-                <th>Email</th>
-                <th>Nombre</th>
-                <th>Telefono</th>
-            </thead>
-
-            <tbody id="tbody_contactos">
-            </tbody>
-        </table>
-        <script>
-            document.body.onload = getAll();
-        </script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactos</title>
+    <script type="text/javascript" src="static/js/get_all.js"></script>
+</head>
+<body>
+    <!--Generamos una tabla con id para indicar el elemento-->
+    <table id="tabla_contactos">
+        <!--Cabeceras-->
+        <thead id="thead_contactos">
+            <th>Email</th>
+            <th>Nombre</th>
+            <th>Telefono</th>
+        </thead>
+        <!--Cuerpo-->
+        <tbody id="tbody_contactos"></tbody>
+    </table>
+    <!--Al terminar de cargar el cuerpo, se llama a la fucnión del script-->
+    <script>
+        document.body.onload=getAll()
+    </script>
+</body>
 </html>
